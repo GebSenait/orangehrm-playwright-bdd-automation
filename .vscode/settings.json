@@ -1,0 +1,33 @@
+{
+    "cucumber.features": [
+        "features/**/*.feature"
+    ],
+    "cucumber.glue": [
+        "steps/**/*.py",
+        "steps"
+    ],
+    "cucumber.stepDefinitions": [
+        "steps/**/*.py"
+    ],
+    "cucumber.autocomplete": true,
+    "cucumber.format": true,
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/venv/Lib/site-packages"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "files.associations": {
+        "*.feature": "gherkin"
+    },
+    "[gherkin]": {
+        "editor.defaultFormatter": "alexkrechik.cucumberautocomplete"
+    },
+    "gherkin.onlyRenderStepsFromCurrentFeature": false,
+    "gherkin.steps": [
+        "steps/**/*.py"
+    ]
+}
+
