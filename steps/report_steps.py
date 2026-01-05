@@ -1,6 +1,5 @@
 """
 Step definitions for Report Generation feature
-
 """
 from behave import given, when, then  # type: ignore
 from pages.reports_page import ReportsPage

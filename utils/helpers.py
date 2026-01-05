@@ -1,7 +1,6 @@
 """
 Helper utilities for OrangeHRM automation framework
 """
-import os
 from datetime import datetime
 from pathlib import Path
 from playwright.sync_api import Page

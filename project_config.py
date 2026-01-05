@@ -1,8 +1,6 @@
 """
 Playwright configuration for OrangeHRM automation framework
 """
-from playwright.sync_api import Playwright, sync_playwright
-import os
 
 # Base URL for OrangeHRM
 BASE_URL = "https://opensource-demo.orangehrmlive.com"

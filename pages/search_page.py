@@ -40,7 +40,7 @@ class SearchPage:
             pim_menu.wait_for(state="visible", timeout=10000)
             pim_menu.click()
             self.page.wait_for_timeout(1000)
-        except Exception as e:
+        except Exception:
             # Try alternative navigation
             self.page.locator('span:has-text("PIM")').first.click()
             self.page.wait_for_timeout(1000)
@@ -50,7 +50,7 @@ class SearchPage:
             employee_list = self.page.locator('a[href*="viewEmployeeList"], a:has-text("Employee List")').first
             employee_list.wait_for(state="visible", timeout=10000)
             employee_list.click()
-        except Exception as e:
+        except Exception:
             self.page.locator('a:has-text("Employee List")').first.click()
         
         self.page.wait_for_load_state("networkidle", timeout=60000)
@@ -118,7 +118,7 @@ class SearchPage:
                 self.page.locator('button[type="submit"]').first.click()
             
             self.page.wait_for_load_state("networkidle", timeout=60000)
-        except Exception as e:
+        except Exception:
             # Last resort: try basic fill and submit
             self.page.fill('input[placeholder*="Employee Name"]', employee_name)
             self.page.wait_for_timeout(1000)
@@ -238,11 +238,11 @@ class SearchPage:
                     if any(c.isalpha() for c in part) and len(part) > 2:
                         return part
                 
-            except Exception as e:
+            except Exception:
                 return ""
             
             return ""
-        except Exception as e:
+        except Exception:
             return ""
     
     def reset_search(self):

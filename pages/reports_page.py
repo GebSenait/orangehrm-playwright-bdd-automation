@@ -45,7 +45,7 @@ class ReportsPage:
             pim_menu.wait_for(state="visible", timeout=10000)
             pim_menu.click()
             self.page.wait_for_timeout(1000)
-        except Exception as e:
+        except Exception:
             self.page.locator('span:has-text("PIM")').first.click()
             self.page.wait_for_timeout(1000)
         
@@ -54,7 +54,7 @@ class ReportsPage:
             reports_menu = self.page.locator('a[href*="pim/report"], a:has-text("Reports")').first
             reports_menu.wait_for(state="visible", timeout=10000)
             reports_menu.click()
-        except Exception as e:
+        except Exception:
             self.page.locator('a:has-text("Reports")').first.click()
         
         self.page.wait_for_load_state("networkidle", timeout=60000)

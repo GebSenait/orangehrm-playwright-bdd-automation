@@ -1,6 +1,5 @@
 """
 Step definitions for Employee Search feature
-
 """
 from behave import given, when, then  # type: ignore
 from pages.search_page import SearchPage

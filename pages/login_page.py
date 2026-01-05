@@ -44,7 +44,7 @@ class LoginPage:
                 username_locator = self.page.locator('input[placeholder*="Username"]').first
             username_locator.wait_for(state="visible", timeout=10000)
             username_locator.fill(username)
-        except Exception as e:
+        except Exception:
             # Fallback: try by class
             self.page.locator('input.oxd-input').first.fill(username)
         
@@ -55,7 +55,7 @@ class LoginPage:
                 password_locator = self.page.locator('input[type="password"]').first
             password_locator.wait_for(state="visible", timeout=10000)
             password_locator.fill(password)
-        except Exception as e:
+        except Exception:
             # Fallback: try password input by type
             try:
                 self.page.locator('input[type="password"]').first.wait_for(state="visible", timeout=10000)
@@ -70,7 +70,7 @@ class LoginPage:
             if not login_btn.is_visible(timeout=2000):
                 login_btn = self.page.locator('button:has-text("Login")').first
             login_btn.click()
-        except Exception as e:
+        except Exception:
             self.page.locator('button[type="submit"]').first.click()
         
         self.page.wait_for_load_state("networkidle", timeout=60000)
