@@ -1,10 +1,6 @@
 """
 Step definitions for Report Generation feature
 
-This file contains all step definitions for features/reports.feature.
-Each step definition is linked to methods in pages/reports_page.py.
-
-Navigation: Hover over steps in features/reports.feature and Ctrl+Click to navigate here.
 """
 from behave import given, when, then  # type: ignore
 from pages.reports_page import ReportsPage

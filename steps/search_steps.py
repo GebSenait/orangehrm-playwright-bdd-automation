@@ -1,10 +1,6 @@
 """
 Step definitions for Employee Search feature
 
-This file contains all step definitions for features/search.feature.
-Each step definition is linked to methods in pages/search_page.py.
-
-Navigation: Hover over steps in features/search.feature and Ctrl+Click to navigate here.
 """
 from behave import given, when, then  # type: ignore
 from pages.search_page import SearchPage
