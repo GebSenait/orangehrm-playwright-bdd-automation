@@ -6,7 +6,7 @@ Each step definition is linked to methods in pages/search_page.py.
 
 Navigation: Hover over steps in features/search.feature and Ctrl+Click to navigate here.
 """
-from behave import given, when, then
+from behave import given, when, then  # type: ignore
 from pages.search_page import SearchPage
 
 # Import common login step to ensure it's available

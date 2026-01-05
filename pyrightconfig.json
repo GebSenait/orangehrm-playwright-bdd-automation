@@ -10,6 +10,7 @@
     ],
     "reportMissingImports": "warning",
     "reportMissingTypeStubs": false,
+    "reportAttributeAccessIssue": "none",
     "pythonVersion": "3.12",
     "pythonPlatform": "Windows",
     "typeCheckingMode": "basic",

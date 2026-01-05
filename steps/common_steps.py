@@ -5,7 +5,7 @@ These steps are used in Background sections and can be reused
 Navigation: Hover over "Given I am logged into OrangeHRM" in any feature file
 and Ctrl+Click to navigate to this step definition.
 """
-from behave import given
+from behave import given  # type: ignore
 from pages.login_page import LoginPage
 from utils.config import USERNAME, PASSWORD
 
