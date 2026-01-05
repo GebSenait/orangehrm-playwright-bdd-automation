@@ -2,18 +2,10 @@
 Step definitions for Employee Search feature
 """
 from behave import given, when, then
-from pages.login_page import LoginPage
 from pages.search_page import SearchPage
-from utils.config import USERNAME, PASSWORD
 
-
-@given('I am logged into OrangeHRM')
-def step_login(context):
-    """Step to login to OrangeHRM"""
-    login_page = LoginPage(context.page)
-    login_page.navigate()
-    login_page.login(USERNAME, PASSWORD)
-    assert login_page.is_logged_in(), "Login failed"
+# Import common login step to ensure it's available
+from steps.common_steps import step_login_common  # noqa: F401
 
 
 @given('I navigate to the Employee List page')
