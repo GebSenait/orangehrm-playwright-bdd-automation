@@ -1,0 +1,10 @@
+{
+    "features": "features/**/*.feature",
+    "glue": [
+        "steps"
+    ],
+    "format": [
+        "pretty"
+    ]
+}
+

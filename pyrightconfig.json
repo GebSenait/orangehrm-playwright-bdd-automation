@@ -1,0 +1,26 @@
+{
+    "include": [
+        "**/*.py"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "**/venv",
+        "**/.venv"
+    ],
+    "reportMissingImports": "warning",
+    "reportMissingTypeStubs": false,
+    "pythonVersion": "3.12",
+    "pythonPlatform": "Windows",
+    "typeCheckingMode": "basic",
+    "executionEnvironments": [
+        {
+            "root": ".",
+            "pythonVersion": "3.12",
+            "extraPaths": [
+                "venv/Lib/site-packages"
+            ]
+        }
+    ]
+}
+

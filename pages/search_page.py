@@ -1,7 +1,7 @@
 """
 Search Page Object Model for OrangeHRM Employee Search
 """
-from playwright.sync_api import Page
+from playwright.sync_api import Page  # type: ignore
 from utils.helpers import wait_for_element_visible
 
 
