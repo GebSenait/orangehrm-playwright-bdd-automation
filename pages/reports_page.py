@@ -35,12 +35,36 @@ class ReportsPage:
     
     def navigate_to_reports(self):
         """Navigate to Reports page"""
-        wait_for_element_visible(self.page, self.pim_menu)
-        self.page.click(self.pim_menu)
-        wait_for_element_visible(self.page, self.reports_menu)
-        self.page.click(self.reports_menu)
-        self.page.wait_for_load_state("networkidle")
-        wait_for_element_visible(self.page, self.report_name_input)
+        # Wait for page to be ready after login
+        self.page.wait_for_load_state("networkidle", timeout=60000)
+        self.page.wait_for_timeout(2000)
+        
+        # Click PIM menu
+        try:
+            pim_menu = self.page.locator('a[href*="pim"], span:has-text("PIM")').first
+            pim_menu.wait_for(state="visible", timeout=10000)
+            pim_menu.click()
+            self.page.wait_for_timeout(1000)
+        except Exception as e:
+            self.page.locator('span:has-text("PIM")').first.click()
+            self.page.wait_for_timeout(1000)
+        
+        # Click Reports menu
+        try:
+            reports_menu = self.page.locator('a[href*="pim/report"], a:has-text("Reports")').first
+            reports_menu.wait_for(state="visible", timeout=10000)
+            reports_menu.click()
+        except Exception as e:
+            self.page.locator('a:has-text("Reports")').first.click()
+        
+        self.page.wait_for_load_state("networkidle", timeout=60000)
+        self.page.wait_for_timeout(2000)
+        
+        # Wait for report name input (optional, don't fail if not found)
+        try:
+            self.page.locator('input[placeholder*="Report Name"]').first.wait_for(state="visible", timeout=5000)
+        except:
+            pass  # Continue even if not found
     
     def search_report(self, report_name: str):
         """

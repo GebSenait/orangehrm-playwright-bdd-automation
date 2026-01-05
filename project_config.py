@@ -13,8 +13,8 @@ PASSWORD = "admin123"
 
 # Browser settings
 BROWSER = "chromium"  # Options: chromium, firefox, webkit
-HEADLESS = True
-SLOW_MO = 0  # milliseconds
+HEADLESS = False  # Set to False for debugging, True for CI
+SLOW_MO = 500  # milliseconds - slow down for visibility
 
 # Timeout settings
 TIMEOUT = 30000  # 30 seconds
