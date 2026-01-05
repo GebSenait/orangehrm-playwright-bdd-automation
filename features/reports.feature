@@ -14,10 +14,16 @@ Feature: Report Generation Validation
     And the report should display employee data in a table format
 
   @reports @filtered
-  Scenario: Filtered Report Accuracy
-    When I generate a report with employee name filter "John"
+  Scenario Outline: Filtered Report Accuracy
+    When I generate a report with employee name filter "<employee_name>"
     Then the report should be generated successfully
     And the report results should match the applied filter
+
+    Examples:
+      | employee_name |
+      | John          |
+      | Peter         |
+      | Linda         |
 
   @reports @error
   Scenario: Invalid Input / Error Handling

@@ -8,21 +8,39 @@ Feature: Employee Search Validation
     And I navigate to the Employee List page
 
   @search @valid
-  Scenario: Valid Employee Search
-    When I search for an employee with name "John"
+  Scenario Outline: Valid Employee Search
+    When I search for an employee with name "<employee_name>"
     Then I should see search results displayed
-    And the search results should contain the employee name "John"
+    And the search results should contain the employee name "<employee_name>"
+
+    Examples:
+      | employee_name |
+      | John          |
+      | Peter         |
+      | Linda         |
 
   @search @invalid
-  Scenario: Invalid / No-Result Search
-    When I search for an employee with invalid name "NonExistentEmployee123"
+  Scenario Outline: Invalid / No-Result Search
+    When I search for an employee with invalid name "<invalid_name>"
     Then I should see "No Records Found" message
     And no search results should be displayed
 
+    Examples:
+      | invalid_name            |
+      | NonExistentEmployee123  |
+      | InvalidUser999          |
+      | TestUserXYZ             |
+
   @search @filter
-  Scenario: Filter-Based Search Validation
-    When I apply employment status filter "Full-Time Permanent"
+  Scenario Outline: Filter-Based Search Validation
+    When I apply employment status filter "<employment_status>"
     And I click the search button
     Then I should see filtered search results
     And all results should match the applied filter
+
+    Examples:
+      | employment_status      |
+      | Full-Time Permanent    |
+      | Part-Time Permanent    |
+      | Contract               |
 
