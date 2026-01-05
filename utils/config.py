@@ -1,7 +1,7 @@
 """
 Configuration module for OrangeHRM automation framework
 """
-from playwright.config import (
+from project_config import (
     BASE_URL,
     USERNAME,
     PASSWORD,
