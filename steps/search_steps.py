@@ -1,5 +1,10 @@
 """
 Step definitions for Employee Search feature
+
+This file contains all step definitions for features/search.feature.
+Each step definition is linked to methods in pages/search_page.py.
+
+Navigation: Hover over steps in features/search.feature and Ctrl+Click to navigate here.
 """
 from behave import given, when, then
 from pages.search_page import SearchPage
@@ -10,28 +15,48 @@ from steps.common_steps import step_login_common  # noqa: F401
 
 @given('I navigate to the Employee List page')
 def step_navigate_to_employee_list(context):
-    """Step to navigate to Employee List page"""
+    """
+    Step to navigate to Employee List page
+    
+    Linked to: pages/search_page.py -> SearchPage.navigate_to_employee_list()
+    Used in: features/search.feature (Background)
+    """
     search_page = SearchPage(context.page)
     search_page.navigate_to_employee_list()
 
 
 @when('I search for an employee with name "{employee_name}"')
 def step_search_employee(context, employee_name):
-    """Step to search for an employee by name"""
+    """
+    Step to search for an employee by name
+    
+    Linked to: pages/search_page.py -> SearchPage.search_by_employee_name()
+    Used in: features/search.feature (Scenario Outline: Valid Employee Search)
+    """
     context.search_page = SearchPage(context.page)
     context.search_page.search_by_employee_name(employee_name)
 
 
 @when('I search for an employee with invalid name "{invalid_name}"')
 def step_search_invalid_employee(context, invalid_name):
-    """Step to search with invalid employee name"""
+    """
+    Step to search with invalid employee name
+    
+    Linked to: pages/search_page.py -> SearchPage.search_with_invalid_name()
+    Used in: features/search.feature (Scenario Outline: Invalid / No-Result Search)
+    """
     context.search_page = SearchPage(context.page)
     context.search_page.search_with_invalid_name(invalid_name)
 
 
 @when('I apply employment status filter "{status}"')
 def step_apply_employment_status_filter(context, status):
-    """Step to apply employment status filter"""
+    """
+    Step to apply employment status filter
+    
+    Linked to: pages/search_page.py -> SearchPage.apply_employment_status_filter()
+    Used in: features/search.feature (Scenario Outline: Filter-Based Search Validation)
+    """
     if not hasattr(context, 'search_page'):
         context.search_page = SearchPage(context.page)
     context.search_page.apply_employment_status_filter(status)
@@ -39,7 +64,12 @@ def step_apply_employment_status_filter(context, status):
 
 @when('I click the search button')
 def step_click_search(context):
-    """Step to click search button"""
+    """
+    Step to click search button
+    
+    Linked to: pages/search_page.py -> SearchPage (uses search_button selector)
+    Used in: features/search.feature (Scenario Outline: Filter-Based Search Validation)
+    """
     if not hasattr(context, 'search_page'):
         context.search_page = SearchPage(context.page)
     context.search_page.page.click(context.search_page.search_button)
@@ -48,14 +78,24 @@ def step_click_search(context):
 
 @then('I should see search results displayed')
 def step_verify_search_results(context):
-    """Step to verify search results are displayed"""
+    """
+    Step to verify search results are displayed
+    
+    Linked to: pages/search_page.py -> SearchPage.get_search_results_count()
+    Used in: features/search.feature (Scenario Outline: Valid Employee Search)
+    """
     results_count = context.search_page.get_search_results_count()
     assert results_count > 0, f"Expected search results but found {results_count} results"
 
 
 @then('the search results should contain the employee name "{employee_name}"')
 def step_verify_employee_in_results(context, employee_name):
-    """Step to verify employee name in search results"""
+    """
+    Step to verify employee name in search results
+    
+    Linked to: pages/search_page.py -> SearchPage.get_first_result_employee_name()
+    Used in: features/search.feature (Scenario Outline: Valid Employee Search)
+    """
     first_result_name = context.search_page.get_first_result_employee_name()
     # More flexible assertion - check if name appears anywhere in the result
     result_lower = first_result_name.lower()

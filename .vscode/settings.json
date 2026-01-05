@@ -7,10 +7,15 @@
         "steps"
     ],
     "cucumber.stepDefinitions": [
-        "steps/**/*.py"
+        "steps/**/*.py",
+        "steps/common_steps.py",
+        "steps/search_steps.py",
+        "steps/report_steps.py"
     ],
     "cucumber.autocomplete": true,
     "cucumber.format": true,
+    "cucumber.strict": false,
+    "cucumber.snippets": true,
     "python.analysis.extraPaths": [
         "${workspaceFolder}",
         "${workspaceFolder}/venv/Lib/site-packages"
@@ -23,11 +28,21 @@
         "*.feature": "gherkin"
     },
     "[gherkin]": {
-        "editor.defaultFormatter": "alexkrechik.cucumberautocomplete"
+        "editor.defaultFormatter": "alexkrechik.cucumberautocomplete",
+        "editor.quickSuggestions": {
+            "comments": false,
+            "strings": true,
+            "other": true
+        }
     },
     "gherkin.onlyRenderStepsFromCurrentFeature": false,
     "gherkin.steps": [
         "steps/**/*.py"
-    ]
+    ],
+    "gherkin.features": [
+        "features/**/*.feature"
+    ],
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.gotoLocation.multipleReferences": "goto"
 }
 
