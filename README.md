@@ -1,6 +1,6 @@
 # OrangeHRM Automation Framework – Playwright + Python + BDD
 
-**What's covered:** Search & Report validation features with 6 optimized test scenarios:
+**What's covered:** Search & Report validation features with 6 test scenarios:
 - **Search Validation (3 scenarios):** Valid employee search, invalid/no-result search, filter-based search
 - **Report Generation Validation (3 scenarios):** Employee report generation, filtered report accuracy, invalid input/error handling
 
