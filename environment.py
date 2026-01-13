@@ -12,7 +12,18 @@ use_step_matcher("parse")
 def before_all(context):
     """Initialize browser before all scenarios"""
     context.playwright = sync_playwright().start()
-    context.browser = context.playwright.chromium.launch(headless=HEADLESS)
+    # Browser launch options optimized for CI
+    launch_options = {
+        "headless": HEADLESS,
+        "args": [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-accelerated-2d-canvas",
+            "--disable-gpu",
+        ]
+    }
+    context.browser = context.playwright.chromium.launch(**launch_options)
     context.context = context.browser.new_context()
     context.page = context.context.new_page()
 

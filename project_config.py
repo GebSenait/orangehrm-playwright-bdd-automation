@@ -11,8 +11,10 @@ PASSWORD = "admin123"
 
 # Browser settings
 BROWSER = "chromium"  # Options: chromium, firefox, webkit
-HEADLESS = False  # Set to False for debugging, True for CI
-SLOW_MO = 500  # milliseconds - slow down for visibility
+# Detect CI environment (GitHub Actions, GitLab CI, etc.)
+import os
+HEADLESS = os.getenv("CI", "false").lower() in ("true", "1")  # True in CI, False locally
+SLOW_MO = 0 if HEADLESS else 500  # No slow-mo in CI, 500ms locally for debugging
 
 # Timeout settings
 TIMEOUT = 30000  # 30 seconds
