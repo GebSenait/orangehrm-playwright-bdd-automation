@@ -141,9 +141,31 @@ class ReportsPage:
     
     def generate_report_with_invalid_input(self):
         """Attempt to generate report with invalid/empty input"""
-        wait_for_element_visible(self.page, self.generate_button)
-        self.page.click(self.generate_button)
-        self.page.wait_for_load_state("networkidle")
+        # Ensure we're on the Reports page
+        self.navigate_to_reports()
+        
+        # Wait for generate button with multiple strategies
+        try:
+            wait_for_element_visible(self.page, self.generate_button, timeout=15000)
+        except Exception:
+            # Try alternative selectors
+            try:
+                self.page.locator('button:has-text("Generate")').first.wait_for(state="visible", timeout=10000)
+            except Exception:
+                # Wait for page to be ready
+                self.page.wait_for_load_state("networkidle", timeout=30000)
+                self.page.wait_for_timeout(2000)
+        
+        # Click generate button
+        try:
+            self.page.click(self.generate_button)
+        except Exception:
+            try:
+                self.page.locator('button:has-text("Generate")').first.click()
+            except Exception:
+                self.page.locator('button[type="submit"]').first.click()
+        
+        self.page.wait_for_load_state("networkidle", timeout=30000)
     
     def is_report_generated(self) -> bool:
         """Check if report was successfully generated"""

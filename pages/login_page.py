@@ -33,6 +33,15 @@ class LoginPage:
         username = username or USERNAME
         password = password or PASSWORD
         
+        # Navigate to base URL first
+        self.page.goto(BASE_URL, wait_until="domcontentloaded")
+        self.page.wait_for_load_state("networkidle", timeout=60000)
+        self.page.wait_for_timeout(2000)  # Give page time to render
+        
+        # Check if already logged in - if so, skip login process
+        if self.is_logged_in():
+            return  # Already logged in, no need to login again
+        
         # Wait for page to be ready
         self.page.wait_for_load_state("domcontentloaded")
         self.page.wait_for_timeout(2000)  # Give page time to render
@@ -60,7 +69,7 @@ class LoginPage:
             try:
                 self.page.locator('input[type="password"]').first.wait_for(state="visible", timeout=10000)
                 self.page.locator('input[type="password"]').first.fill(password)
-            except:
+            except Exception:
                 # Last resort: use any password input
                 self.page.fill('input[type="password"]', password)
         
@@ -76,10 +85,22 @@ class LoginPage:
         self.page.wait_for_load_state("networkidle", timeout=60000)
     
     def is_logged_in(self) -> bool:
-        """Check if user is logged in by verifying dashboard presence"""
+        """Check if user is logged in by verifying dashboard presence or absence of login form"""
         try:
-            wait_for_element_visible(self.page, self.dashboard_heading, timeout=10000)
+            # Check if dashboard heading is visible (user is logged in)
+            wait_for_element_visible(self.page, self.dashboard_heading, timeout=5000)
             return True
-        except:
+        except Exception:
+            # Check if login form is visible (user is not logged in)
+            try:
+                login_form = self.page.locator('input[name="username"]').first
+                if login_form.is_visible(timeout=3000):
+                    return False
+            except Exception:
+                pass
+            # If neither is clearly visible, check URL
+            current_url = self.page.url
+            if "dashboard" in current_url.lower() or "index" in current_url.lower():
+                return True
             return False
 

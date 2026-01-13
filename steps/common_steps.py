@@ -22,7 +22,8 @@ def step_login_common(context):
     and navigable from feature files.
     """
     login_page = LoginPage(context.page)
-    login_page.navigate()
+    # Navigate is called inside login() method, so we don't need to call it separately
     login_page.login(USERNAME, PASSWORD)
-    assert login_page.is_logged_in(), "Login failed"
+    # Verify login was successful (or already logged in)
+    assert login_page.is_logged_in(), "Login failed or user not logged in"
 

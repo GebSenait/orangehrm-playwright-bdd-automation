@@ -132,11 +132,36 @@ class SearchPage:
         Args:
             invalid_name: Invalid employee name
         """
-        wait_for_element_visible(self.page, self.employee_name_input)
-        self.page.fill(self.employee_name_input, invalid_name)
+        # Ensure we're on the Employee List page
+        self.navigate_to_employee_list()
+        
+        # Wait for employee name input with multiple strategies
+        try:
+            wait_for_element_visible(self.page, self.employee_name_input, timeout=15000)
+        except Exception:
+            # Try alternative selector
+            try:
+                self.page.locator('input[placeholder*="Employee Name"]').first.wait_for(state="visible", timeout=10000)
+            except Exception:
+                # Last resort: wait for any input field
+                self.page.wait_for_load_state("networkidle", timeout=30000)
+                self.page.wait_for_timeout(2000)
+        
+        # Fill the input
+        try:
+            self.page.fill(self.employee_name_input, invalid_name)
+        except Exception:
+            self.page.locator('input[placeholder*="Employee Name"]').first.fill(invalid_name)
+        
         self.page.wait_for_timeout(1000)
-        self.page.click(self.search_button)
-        self.page.wait_for_load_state("networkidle")
+        
+        # Click search button
+        try:
+            self.page.click(self.search_button)
+        except Exception:
+            self.page.locator('button[type="submit"]').first.click()
+        
+        self.page.wait_for_load_state("networkidle", timeout=30000)
     
     def apply_employment_status_filter(self, status: str):
         """

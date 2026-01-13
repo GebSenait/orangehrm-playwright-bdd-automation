@@ -43,4 +43,3 @@ Feature: Employee Search Validation
       | Full-Time Permanent    |
       | Part-Time Permanent    |
       | Contract               |
-

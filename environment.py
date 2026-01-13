@@ -33,6 +33,14 @@ def after_scenario(context, scenario):
 
 def before_scenario(context, scenario):
     """Reset context before each scenario"""
+    # Clear cookies and storage to ensure clean session state
+    if hasattr(context, 'context'):
+        try:
+            context.context.clear_cookies()
+            context.context.clear_permissions()
+        except Exception:
+            pass  # Continue even if clearing fails
+    
     # Clear any page objects from previous scenario
     if hasattr(context, 'search_page'):
         delattr(context, 'search_page')
