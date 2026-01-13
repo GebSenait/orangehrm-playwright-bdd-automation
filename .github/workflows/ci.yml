@@ -27,11 +27,35 @@ jobs:
     - name: Install Playwright system dependencies
       run: |
         sudo apt-get update
-        # Fix for Ubuntu 24.04+ where libasound2 package name changed to libasound2t64
-        # Try installing the new package name first, fallback to old name for older Ubuntu versions
-        sudo apt-get install -y libasound2t64 2>/dev/null || sudo apt-get install -y libasound2 2>/dev/null || true
-        # Install remaining Playwright system dependencies
-        playwright install-deps chromium
+        # Install all required system dependencies for Playwright Chromium
+        # Handle Ubuntu 24.04+ package name changes (libasound2 -> libasound2t64)
+        # Try installing libasound2t64 first (Ubuntu 24.04+), fallback to libasound2 (older versions)
+        if sudo apt-get install -y libasound2t64 2>/dev/null; then
+          echo "Installed libasound2t64 (Ubuntu 24.04+)"
+        else
+          sudo apt-get install -y libasound2 2>/dev/null || echo "libasound2/libasound2t64 installation skipped"
+        fi
+        # Install remaining Playwright dependencies
+        sudo apt-get install -y \
+          libnss3 \
+          libatk-bridge2.0-0 \
+          libatk1.0-0 \
+          libatspi2.0-0 \
+          libcups2 \
+          libdbus-1-3 \
+          libdrm2 \
+          libgbm1 \
+          libgtk-3-0 \
+          libxkbcommon0 \
+          libxcomposite1 \
+          libxdamage1 \
+          libxfixes3 \
+          libxrandr2 \
+          libxshmfence1 \
+          libxss1 \
+          fonts-liberation \
+          libappindicator3-1 \
+          xdg-utils || true
     
     - name: Install Playwright browsers
       run: |
