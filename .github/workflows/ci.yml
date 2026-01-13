@@ -24,9 +24,18 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Install Playwright system dependencies
+      run: |
+        sudo apt-get update
+        # Fix for Ubuntu 24.04+ where libasound2 package name changed to libasound2t64
+        # Try installing the new package name first, fallback to old name for older Ubuntu versions
+        sudo apt-get install -y libasound2t64 2>/dev/null || sudo apt-get install -y libasound2 2>/dev/null || true
+        # Install remaining Playwright system dependencies
+        playwright install-deps chromium
+    
     - name: Install Playwright browsers
       run: |
-        playwright install --with-deps chromium
+        playwright install chromium
     
     - name: Run Behave tests
       run: |
